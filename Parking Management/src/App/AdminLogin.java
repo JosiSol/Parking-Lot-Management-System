@@ -1,9 +1,9 @@
 package App;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class AdminLogin {
 
@@ -26,11 +26,18 @@ public class AdminLogin {
         JLabel passwordLabel = new JLabel("Password:");
         JPasswordField passwordField = new JPasswordField();
 
+        // Create a checkbox to toggle password visibility
+        JCheckBox showPassword = new JCheckBox("Show Password");
+        showPassword.addActionListener(e -> {
+            passwordField.setEchoChar(showPassword.isSelected() ? '\u0000' : '\u2022');
+        });
+
         // Add components to the login panel
         loginPanel.add(usernameLabel);
         loginPanel.add(usernameField);
         loginPanel.add(passwordLabel);
         loginPanel.add(passwordField);
+        loginPanel.add(showPassword);
 
         // Add login panel to the center of the frame
         adminFrame.add(loginPanel, BorderLayout.CENTER);

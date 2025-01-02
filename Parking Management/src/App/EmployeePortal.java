@@ -1,9 +1,9 @@
 package App;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class EmployeePortal {
 
@@ -31,8 +31,8 @@ public class EmployeePortal {
         JButton checkInButton = new JButton("Check In");
         JButton checkOutButton = new JButton("Check Out");
         JButton statusButton = new JButton("Status");
-        JButton settingsButton = new JButton("Settings");
-        JButton backButton = new JButton("Back");
+        JButton settingsButton = new JButton("Change Password");
+        JButton backButton = new JButton("Logout");
 
         // Add buttons to the panel
         buttonPanel.add(checkInButton);

@@ -1,14 +1,14 @@
 package App;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import javax.imageio.ImageIO;
-import java.io.IOException;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class HomePage {
 
@@ -69,10 +69,10 @@ public class HomePage {
         exitButton.setForeground(new Color(205,154,51));
 
         // Add buttons to the button panel
-        buttonPanel.add(Box.createVerticalStrut(10));
-        buttonPanel.add(employeeButton);
         buttonPanel.add(Box.createVerticalStrut(10)); // Adds space between buttons
         buttonPanel.add(adminButton);
+        buttonPanel.add(Box.createVerticalStrut(10));
+        buttonPanel.add(employeeButton);
         buttonPanel.add(Box.createVerticalStrut(10)); // Adds space between buttons
         buttonPanel.add(exitButton);
 

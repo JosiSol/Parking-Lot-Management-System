@@ -34,7 +34,7 @@ public class AdminPortal {
         reportButton.setBounds(100, 250, 200, 30);
         adminPortalFrame.add(reportButton);
 
-        JButton backButton = new JButton("Back");
+        JButton backButton = new JButton("Logout");
         backButton.setBounds(100, 300, 200, 30);
         adminPortalFrame.add(backButton);
         

@@ -1,9 +1,9 @@
 package App;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class AddEmployeePage {
 
@@ -27,11 +27,18 @@ public class AddEmployeePage {
         JLabel nameLabel = new JLabel("Name:");
         JTextField nameField = new JTextField();
         JLabel genderLabel = new JLabel("Gender:");
-        JTextField genderField = new JTextField();
+        String[] genderOptions = {"Male", "Female"};
+        JComboBox<String> genderField = new JComboBox<>(genderOptions);
         JLabel usernameLabel = new JLabel("Username:");
         JTextField usernameField = new JTextField();
         JLabel passwordLabel = new JLabel("Password:");
         JPasswordField passwordField = new JPasswordField();
+
+        //Create a checkbox to toggle password visibility
+        JCheckBox showPassword = new JCheckBox("Show Password");
+        showPassword.addActionListener(e -> {
+            passwordField.setEchoChar(showPassword.isSelected()? '\u0000' : '\u2022');
+        });
 
         // Add components to the form panel
         formPanel.add(nameLabel);
@@ -42,6 +49,7 @@ public class AddEmployeePage {
         formPanel.add(usernameField);
         formPanel.add(passwordLabel);
         formPanel.add(passwordField);
+        formPanel.add(showPassword);
 
         // Add the form panel to the center of the frame
         addEmployeeFrame.add(formPanel, BorderLayout.CENTER);
@@ -66,13 +74,15 @@ public class AddEmployeePage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String name = nameField.getText();
-                String gender = genderField.getText();
+                String gender = (String) genderField.getSelectedItem();
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
 
                 if (name.isEmpty() || gender.isEmpty() || username.isEmpty() || password.isEmpty()) {
                     JOptionPane.showMessageDialog(addEmployeeFrame, "All fields are required.", "Input Error", JOptionPane.ERROR_MESSAGE);
-                } else {
+                } else if (!isValidPassword(password)) {
+                    JOptionPane.showMessageDialog(addEmployeeFrame, "Password must contain at least 8 characters with a mix of uppercase, lowercase, and a number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                }else {
                     // Create a new Employee object and add it to the file
                     Employee newEmployee = new Employee(name, gender, username, password);
                     Employee.addEmployeeToFile(newEmployee);
@@ -82,6 +92,14 @@ public class AddEmployeePage {
                     addEmployeeFrame.dispose(); // Close the Add Employee page
                     parentFrame.setVisible(true); // Show the Admin Portal again
                 }
+            }
+            private boolean isValidPassword(String password) {
+                // This is a very basic validation, you can add more rules as per your requirement
+                boolean hasUppercase = !password.equals(password.toLowerCase());
+                boolean hasLowercase = !password.equals(password.toUpperCase());
+                boolean hasSpecialChar = !password.matches("[A-Za-z0-9 ]*");
+                boolean hasCorrectLength = password.length() >= 8;
+                return hasUppercase && hasLowercase && hasSpecialChar && hasCorrectLength;
             }
         });
 
