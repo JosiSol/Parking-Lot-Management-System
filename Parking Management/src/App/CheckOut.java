@@ -47,7 +47,7 @@ public class CheckOut {
         formPanel.setOpaque(false);
         
         // Create label and text field for the username
-        JLabel plateNumberLabel = new JLabel("CheckOut");
+        JLabel plateNumberLabel = new JLabel("Plate Number");
         plateNumberLabel.setFont(new Font("Arial", Font.BOLD, 14));
 
         customizeTextField(plateNumberField);
