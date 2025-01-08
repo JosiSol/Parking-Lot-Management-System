@@ -8,7 +8,7 @@ import java.text.*;
 import java.util.*;
 
 public class CheckIn {
-    private JFrame checkInFrame;
+    public JFrame checkInFrame;
     private JTextField customerNameField, phoneNumberField, plateNumberField;
     private JButton checkInButton, backButton;
     private JFrame parentFrame;
@@ -23,24 +23,48 @@ public class CheckIn {
         ensureFileExists("parking_data.csv");
 
         checkInFrame = new JFrame("Check In");
-        checkInFrame.setSize(400, 300);
-        checkInFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        checkInFrame.setSize(500, 400);
+        checkInFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         checkInFrame.setLocationRelativeTo(null);
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(5, 2));
-
+     // Set the icon
+        ImageIcon icon = new ImageIcon(getClass().getResource("/img/Icon.jpg"));
+        checkInFrame.setIconImage(icon.getImage());
+        
+     // Create a label for the title
+        JLabel titleLabel = new JLabel("Check In New Car", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        checkInFrame.add(titleLabel, BorderLayout.NORTH);
+        
+        // Create a panel for the form inputs
+        JPanel panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/img/PortalBG.jpg"));
+                Image image = backgroundImage.getImage();
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        panel.setLayout(new GridLayout(4, 2, 10, 10)); // 4 rows, 2 columns layout
+        
+     // Create labels and text fields for car details
         JLabel customerNameLabel = new JLabel("Customer Name:");
+        customerNameLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         customerNameField = new JTextField();
+        customizeTextField(customerNameField);
 
         JLabel phoneNumberLabel = new JLabel("Phone Number:");
+        phoneNumberLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         phoneNumberField = new JTextField();
+        customizeTextField(phoneNumberField);
 
         JLabel plateNumberLabel = new JLabel("Plate Number:");
+        plateNumberLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         plateNumberField = new JTextField();
+        customizeTextField(plateNumberField);
 
-        checkInButton = new JButton("Check In");
-        backButton = new JButton("Back");
+        checkInButton = createGradientButton("Check In");
+        backButton = createGradientButton("Back");
 
         panel.add(customerNameLabel);
         panel.add(customerNameField);
@@ -48,11 +72,21 @@ public class CheckIn {
         panel.add(phoneNumberField);
         panel.add(plateNumberLabel);
         panel.add(plateNumberField);
-        panel.add(new JLabel());  // Empty cell
-        panel.add(checkInButton);
-        panel.add(backButton);
+        
+     // Add the form panel to the center of the frame
+        checkInFrame.add(panel, BorderLayout.CENTER);
+       
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
+        
+     // Add buttons to the button panel
+        buttonPanel.add(checkInButton);
+        buttonPanel.add(backButton);
+        
+     // Add the button panel to the bottom of the frame
+        checkInFrame.add(buttonPanel, BorderLayout.SOUTH);
 
-        checkInFrame.add(panel);
+        
         checkInFrame.setVisible(true);
 
         // Back button action
@@ -217,5 +251,54 @@ public class CheckIn {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date now = new Date();
         return sdf.format(now);
+    }
+ // Helper method to customize text fields
+    private void customizeTextField(JTextField textField) {
+        textField.setOpaque(false);
+        textField.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+        textField.setBackground(new Color(0, 0, 0, 0)); // Set transparent background
+        textField.setFont(new Font("Arial", Font.PLAIN, 15));
+    }
+
+    // Helper method to create gradient and rounded buttons
+    private JButton createGradientButton(String text) {
+        JButton button = new JButton(text) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2d = (Graphics2D) g;
+                int width = getWidth();
+                int height = getHeight();
+
+                // Create a gradient paint
+                GradientPaint gradientPaint = new GradientPaint(0, 0, new Color(72, 209, 204), width, height, new Color(25, 25, 112));
+                g2d.setPaint(gradientPaint);
+                g2d.fillRoundRect(0, 0, width, height, 30, 30);
+
+                // Draw the button text
+                g2d.setColor(Color.WHITE);
+                g2d.setFont(getFont());
+                FontMetrics fm = g2d.getFontMetrics();
+                int textWidth = fm.stringWidth(getText());
+                int textHeight = fm.getAscent();
+                g2d.drawString(getText(), (width - textWidth) / 2, (height + textHeight) / 2 - 2);
+
+                // Avoid default painting
+                setContentAreaFilled(false);
+                setFocusPainted(false);
+            }
+
+            @Override
+            protected void paintBorder(Graphics g) {
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setColor(Color.WHITE);
+                g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 30, 30);
+            }
+        };
+
+        button.setPreferredSize(new Dimension(200, 50));
+        button.setOpaque(false); // Ensures the button background remains transparent
+        button.setFocusPainted(false); // Removes focus highlight
+        button.setBorderPainted(false); // Removes default border
+        return button;
     }
 }

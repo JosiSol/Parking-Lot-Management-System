@@ -15,8 +15,12 @@ public class ShowReportPage {
         // Create JFrame for showing the report
         reportFrame = new JFrame("Parking Report");
         reportFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        reportFrame.setSize(800, 400);
+        reportFrame.setSize(900, 600);
         reportFrame.setLocationRelativeTo(null);
+        
+     // Set the icon
+        ImageIcon icon = new ImageIcon(HomePage.class.getResource("/img/Icon.jpg"));
+        reportFrame.setIconImage(icon.getImage());
 
         // Create a panel to hold the table
         JPanel panel = new JPanel();

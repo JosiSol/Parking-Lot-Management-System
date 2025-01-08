@@ -18,14 +18,26 @@ public class HomePage {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(900, 600); // Set frame size
         frame.setLayout(new BorderLayout()); // Use BorderLayout
+        // Set the icon
+        ImageIcon icon = new ImageIcon(HomePage.class.getResource("/img/Icon.jpg"));
+        frame.setIconImage(icon.getImage());
 
         // Create a custom panel with background image
         BackgroundPanel backgroundPanel = new BackgroundPanel();
         frame.setContentPane(backgroundPanel); // Set custom panel as the content pane
 
         // Load custom font
-        Font customFont = loadCustomFont("C:\\\\Users\\\\hp\\\\eclipse-workspace\\\\NewParking\\\\winter_minie\\\\Winter Minie.ttf", 38); // Adjust the path and size as needed
+        // Adjust the path and size as needed
+        Font customFont;
+        try {
+            customFont = Font.createFont(Font.TRUETYPE_FONT, HomePage.class.getResourceAsStream("/Fonts/Winter Minie.ttf")).deriveFont(38f);
+        } catch (FontFormatException | IOException e) {
+            e.printStackTrace(); // Log the error for debugging
+            customFont = new Font("SansSerif", Font.PLAIN, 38); // Fallback font
+        }
 
+
+        
         // Create a panel to hold title and buttons
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS)); // Vertical box layout
@@ -135,7 +147,7 @@ public class HomePage {
         public BackgroundPanel() {
             try {
                 // Load your background image (adjust path as necessary)
-                backgroundImage = ImageIO.read(new File("C://Users//hp//eclipse-workspace//NewParking//img//3077.jpg"));
+                backgroundImage = ImageIO.read(HomePage.class.getResourceAsStream("/img/HomePageBG.jpg"));
             } catch (IOException e) {
                 e.printStackTrace();
             }

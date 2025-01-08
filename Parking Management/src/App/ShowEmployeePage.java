@@ -14,6 +14,10 @@ public class ShowEmployeePage {
         showEmployeeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         showEmployeeFrame.setSize(500, 400);
         showEmployeeFrame.setLayout(new BorderLayout());
+        
+     // Set the icon
+        ImageIcon icon = new ImageIcon(HomePage.class.getResource("/img/Icon.jpg"));
+        showEmployeeFrame.setIconImage(icon.getImage());
 
         // Create a label for the title
         JLabel titleLabel = new JLabel("All Employees", JLabel.CENTER);

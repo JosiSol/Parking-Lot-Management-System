@@ -18,10 +18,13 @@ public class ShowStatusPage {
     private void initialize(JFrame parentFrame) {
         // Create the frame for the Show Status Page
         statusFrame = new JFrame("Parking Status");
-        statusFrame.setSize(600, 400);
+        statusFrame.setSize(900, 600);
         statusFrame.setLocationRelativeTo(null); // Center the window
-        statusFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        statusFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+       
+        // Set the icon
+        ImageIcon icon = new ImageIcon(HomePage.class.getResource("/img/Icon.jpg"));
+        statusFrame.setIconImage(icon.getImage());
         // Column names for the table
         String[] columnNames = { "Name", "Phone Number", "Plate Number", "Parking Spot", "Check In Time" };
 

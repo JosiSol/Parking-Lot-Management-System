@@ -4,97 +4,121 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import javax.swing.text.*;
-
-class PasswordFilter extends DocumentFilter {
-    private final int maxLength;
-    public PasswordFilter(int maxLength) {
-        this.maxLength = maxLength;
-    }
-    @Override
-    public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-        if (string == null){
-            return;
-        }
-        if ((fb.getDocument().getLength() + string.length()) <= maxLength && isValidPassword(string)) {
-            super.insertString(fb, offset, string, attr);
-        }
-}
-    @Override
-    public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attr) throws BadLocationException {
-        if (string == null){
-            return;
-        }
-        if ((fb.getDocument().getLength() + string.length() - length) <= maxLength && isValidPassword(string)) {
-            super.replace(fb, offset, length, string, attr);
-        }
-    }
-    private boolean isValidPassword(String password) {
-        // This is a very basic validation, you can add more rules as per your requirement
-        boolean hasUppercase = !password.equals(password.toLowerCase());
-        boolean hasLowercase = !password.equals(password.toUpperCase());
-        boolean hasSpecialChar = !password.matches("[A-Za-z0-9 ]*");
-        boolean hasCorrectLength = password.length() >= 8;
-        return hasUppercase && hasLowercase && hasSpecialChar && hasCorrectLength;
-    }
-}
 
 public class EmployeeLogin {
 
     public EmployeeLogin(JFrame parentFrame) {
-        // Create the frame for employee login
-        JFrame employeeLoginFrame = new JFrame("Employee Login");
-        employeeLoginFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        employeeLoginFrame.setSize(400, 300);
-        employeeLoginFrame.setLayout(new BorderLayout());
+        // Create a new frame for the Admin Login page
+        JFrame employeeFrame = new JFrame("Employee Login");
+        employeeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        employeeFrame.setSize(900, 600);
+        employeeFrame.setLayout(new GridLayout(1, 2)); // Divide frame into two vertical halves
+        
+     // Set the icon
+        ImageIcon icon = new ImageIcon(HomePage.class.getResource("/img/Icon.jpg"));
+        employeeFrame.setIconImage(icon.getImage());
+        // Left panel for company logo
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new BorderLayout());
+        leftPanel.setBackground(new Color(240, 248, 255)); // Alice blue
 
-        // Create a label for the title
-        JLabel titleLabel = new JLabel("Employee Login", JLabel.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        employeeLoginFrame.add(titleLabel, BorderLayout.NORTH);
+        // Add company logo
+        ImageIcon logoIcon = new ImageIcon(getClass().getResource("/img/Icon.jpg")); // Replace "path/to/logo.png" with actual logo path
+        Image scaledLogo = logoIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH); // Scale the image
+        JLabel logoLabel = new JLabel(new ImageIcon(scaledLogo), JLabel.CENTER);
+        leftPanel.add(logoLabel, BorderLayout.CENTER);
 
-        // Create a panel for the login form
-        JPanel formPanel = new JPanel();
-        formPanel.setLayout(new GridLayout(3, 2, 10, 10)); // 3 rows, 2 columns layout
+        // Right panel for login form with background image
+        JPanel rightPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon background = new ImageIcon(getClass().getResource("/img/LoginBG.jpg")); // Replace with the actual image path
+                g.drawImage(background.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        rightPanel.setLayout(new GridBagLayout());
+        rightPanel.setOpaque(false); // Allow background to show through
 
-        // Create labels and text fields for username and password
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 0, 0, 0); // No margin between labels and inputs
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // Create username label and text field
         JLabel usernameLabel = new JLabel("Username:");
+        usernameLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        usernameLabel.setForeground(Color.WHITE);
+        usernameLabel.setOpaque(false);
         JTextField usernameField = new JTextField();
+        usernameField.setOpaque(false);
+        usernameField.setBackground(new Color(255, 255, 255, 150)); // Slightly more opaque background
+        usernameField.setForeground(Color.WHITE); // White text
+        usernameField.setFont(new Font("Arial", Font.PLAIN, 14)); // Increase text size
+
+        // Create password label and password field
         JLabel passwordLabel = new JLabel("Password:");
+        passwordLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        passwordLabel.setForeground(Color.WHITE);
+        passwordLabel.setOpaque(false);
         JPasswordField passwordField = new JPasswordField();
+        passwordField.setOpaque(false);
+        passwordField.setBackground(new Color(255, 255, 255, 150)); // Slightly more opaque background
+        passwordField.setForeground(Color.WHITE); // White text
+        passwordField.setFont(new Font("Arial", Font.PLAIN, 14)); // Increase text size
 
         // Create a checkbox to toggle password visibility
         JCheckBox showPassword = new JCheckBox("Show Password");
+        showPassword.setFont(new Font("Arial", Font.PLAIN, 14));
+        showPassword.setBackground(new Color(255, 255, 255, 150));
+        showPassword.setOpaque(false);
+        showPassword.setForeground(Color.WHITE);
         showPassword.addActionListener(e -> {
-            passwordField.setEchoChar(showPassword.isSelected()? '\u0000' : '\u2022');
+            passwordField.setEchoChar(showPassword.isSelected() ? '\u0000' : '\u2022');
         });
 
-        // Add components to the form panel
-        formPanel.add(usernameLabel);
-        formPanel.add(usernameField);
-        formPanel.add(passwordLabel);
-        formPanel.add(passwordField);
-        formPanel.add(showPassword);
+        // Add components to the right panel
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        rightPanel.add(usernameLabel, gbc);
+        gbc.gridy = 1;
+        rightPanel.add(usernameField, gbc);
 
-        // Add the form panel to the center of the frame
-        employeeLoginFrame.add(formPanel, BorderLayout.CENTER);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        rightPanel.add(passwordLabel, gbc);
+        gbc.gridy = 3;
+        rightPanel.add(passwordField, gbc);
 
-        // Create a panel for the buttons
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout());
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        rightPanel.add(showPassword, gbc);
 
         // Create login and back buttons
-        JButton loginButton = new JButton("Login");
-        JButton backButton = new JButton("Back");
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        buttonPanel.setOpaque(false);
 
-        // Add buttons to the button panel
+        JButton loginButton = new JButton("Login");
+        loginButton.setFont(new Font("Arial", Font.BOLD, 16));
+        loginButton.setOpaque(false);
+        loginButton.setBackground(new Color(255, 255, 255, 150));
+        loginButton.setForeground(Color.WHITE);
+
+        JButton backButton = new JButton("Back");
+        backButton.setFont(new Font("Arial", Font.BOLD, 16));
+        backButton.setOpaque(false);
+        backButton.setBackground(new Color(255, 255, 255, 150));
+        backButton.setForeground(Color.WHITE);
+
         buttonPanel.add(loginButton);
         buttonPanel.add(backButton);
 
-        // Add the button panel to the bottom of the frame
-        employeeLoginFrame.add(buttonPanel, BorderLayout.SOUTH);
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        rightPanel.add(buttonPanel, gbc);
 
-        // Action listener for login button
+        // Add action listeners to buttons
+     // Action listener for login button
         loginButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -102,20 +126,20 @@ public class EmployeeLogin {
             String password = new String(passwordField.getPassword());
 
             if (username.isEmpty() || password.isEmpty()) {
-                JOptionPane.showMessageDialog(employeeLoginFrame, "Both username and password are required.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(employeeFrame, "Both username and password are required.", "Input Error", JOptionPane.ERROR_MESSAGE);
             } else if (!isValidPassword(password)) {
-                JOptionPane.showMessageDialog(employeeLoginFrame, "Invalid password format. Password must contain at least 8 characters, including uppercase, lowercase letters, and a number.", "Password Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(employeeFrame, "Invalid password format. Password must contain at least 8 characters, including uppercase, lowercase letters, and a number.", "Password Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 // Validate the employee credentials
                 boolean loginSuccess = Employee.validateEmployeeLogin(username, password);
 
                 if (loginSuccess) {
-                    JOptionPane.showMessageDialog(employeeLoginFrame, "Login Successful!");
+                    JOptionPane.showMessageDialog(employeeFrame, "Login Successful!");
                     // Proceed to Employee Portal
-                    employeeLoginFrame.dispose(); // Close the login page
-                    new EmployeePortal(employeeLoginFrame, username); // Pass the logged-in username here
+                    employeeFrame.dispose(); // Close the login page
+                    new EmployeePortal(employeeFrame, username); // Pass the logged-in username here
                 } else {
-                    JOptionPane.showMessageDialog(employeeLoginFrame, "Invalid username or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(employeeFrame, "Invalid username or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -129,18 +153,21 @@ public class EmployeeLogin {
         }
         });
 
-        // Action listener for back button
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                employeeLoginFrame.dispose(); // Close the employee login page
-                parentFrame.setVisible(true); // Show the HomePage again (Admin/Employee selection)
+            	employeeFrame.dispose(); // Close the Admin Login frame
+                parentFrame.setVisible(true); // Show the Home Page again
             }
         });
 
+        // Add panels to the frame
+        employeeFrame.add(leftPanel);
+        employeeFrame.add(rightPanel);
+
         // Set frame visibility
-        employeeLoginFrame.setLocationRelativeTo(null); // Center the frame on the screen
-        employeeLoginFrame.setVisible(true);
-        parentFrame.setVisible(false); // Hide the HomePage when Employee Login page is open
+        employeeFrame.setLocationRelativeTo(null); // Center the frame on the screen
+        employeeFrame.setVisible(true);
+        parentFrame.setVisible(false); // Hide the Home Page
     }
 }
