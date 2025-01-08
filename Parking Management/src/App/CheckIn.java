@@ -2,10 +2,10 @@ package App;
 
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
 import java.io.*;
 import java.text.*;
 import java.util.*;
+import javax.swing.*;
 
 public class CheckIn {
     public JFrame checkInFrame;
@@ -109,6 +109,15 @@ public class CheckIn {
                     return;  // Prevent check-in if any field is empty
                 }
 
+                //Check if parking is full
+                if (getCurrentParkedCarsCount() > 50) {
+                    JOptionPane.showMessageDialog(checkInFrame, "Parking is full. Please try again later.");
+                    customerNameField.setText("");
+                    phoneNumberField.setText("");
+                    plateNumberField.setText(""); 
+                    return;  // Prevent check-in if parking is full
+                }
+
                 // Check for duplicate plate number
                 if (isPlateNumberDuplicate(plateNumber)) {
                     JOptionPane.showMessageDialog(checkInFrame, "This plate number is already in use. Please enter a unique plate number.");
@@ -125,6 +134,20 @@ public class CheckIn {
                 customerNameField.setText("");
                 phoneNumberField.setText("");
                 plateNumberField.setText("");
+
+            }
+
+            // Get the current number of customers in the database
+            private int getCurrentParkedCarsCount() {
+                int count = 0;
+                try (BufferedReader br = new BufferedReader(new FileReader("parking_data.csv"))) {
+                    while (br.readLine() != null) {
+                        count++;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return count;
             }
         });
     }
@@ -179,7 +202,7 @@ public class CheckIn {
                 return spot;  // Return the first available spot
             }
         }
-        return null;  // This should never happen as we have only 50 spots, and some should be free
+        return null; 
     }
 
     // Method to get a list of occupied parking spots from the CSV file
