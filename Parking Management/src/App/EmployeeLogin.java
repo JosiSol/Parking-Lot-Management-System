@@ -8,23 +8,24 @@ import javax.swing.*;
 public class EmployeeLogin {
 
     public EmployeeLogin(JFrame parentFrame) {
+        
         // Create a new frame for the Admin Login page
         JFrame employeeFrame = new JFrame("Employee Login");
         employeeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         employeeFrame.setSize(900, 600);
-        employeeFrame.setLayout(new GridLayout(1, 2)); // Divide frame into two vertical halves
+        employeeFrame.setLayout(new GridLayout(1, 2));
         
-     // Set the icon
         ImageIcon icon = new ImageIcon(HomePage.class.getResource("/img/Icon.jpg"));
         employeeFrame.setIconImage(icon.getImage());
+        
         // Left panel for company logo
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new BorderLayout());
         leftPanel.setBackground(new Color(240, 248, 255)); // Alice blue
 
         // Add company logo
-        ImageIcon logoIcon = new ImageIcon(getClass().getResource("/img/Icon.jpg")); // Replace "path/to/logo.png" with actual logo path
-        Image scaledLogo = logoIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH); // Scale the image
+        ImageIcon logoIcon = new ImageIcon(getClass().getResource("/img/Icon.jpg"));
+        Image scaledLogo = logoIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
         JLabel logoLabel = new JLabel(new ImageIcon(scaledLogo), JLabel.CENTER);
         leftPanel.add(logoLabel, BorderLayout.CENTER);
 
@@ -33,15 +34,15 @@ public class EmployeeLogin {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon background = new ImageIcon(getClass().getResource("/img/LoginBG.jpg")); // Replace with the actual image path
+                ImageIcon background = new ImageIcon(getClass().getResource("/img/LoginBG.jpg"));
                 g.drawImage(background.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         };
         rightPanel.setLayout(new GridBagLayout());
-        rightPanel.setOpaque(false); // Allow background to show through
+        rightPanel.setOpaque(false); 
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 0, 0, 0); // No margin between labels and inputs
+        gbc.insets = new Insets(10, 0, 0, 0); 
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // Create username label and text field
@@ -51,9 +52,9 @@ public class EmployeeLogin {
         usernameLabel.setOpaque(false);
         JTextField usernameField = new JTextField();
         usernameField.setOpaque(false);
-        usernameField.setBackground(new Color(255, 255, 255, 150)); // Slightly more opaque background
-        usernameField.setForeground(Color.WHITE); // White text
-        usernameField.setFont(new Font("Arial", Font.PLAIN, 14)); // Increase text size
+        usernameField.setBackground(new Color(255, 255, 255, 50)); 
+        usernameField.setForeground(Color.WHITE); 
+        usernameField.setFont(new Font("Arial", Font.PLAIN, 14)); 
 
         // Create password label and password field
         JLabel passwordLabel = new JLabel("Password:");
@@ -62,11 +63,9 @@ public class EmployeeLogin {
         passwordLabel.setOpaque(false);
         JPasswordField passwordField = new JPasswordField();
         passwordField.setOpaque(false);
-        passwordField.setBackground(new Color(255, 255, 255, 150)); // Slightly more opaque background
-        passwordField.setForeground(Color.WHITE); // White text
-        passwordField.setFont(new Font("Arial", Font.PLAIN, 14)); // Increase text size
-
-        // Create a checkbox to toggle password visibility
+        passwordField.setBackground(new Color(255, 255, 255, 50));
+        passwordField.setForeground(Color.WHITE); 
+        passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
         JCheckBox showPassword = new JCheckBox("Show Password");
         showPassword.setFont(new Font("Arial", Font.PLAIN, 14));
         showPassword.setBackground(new Color(255, 255, 255, 150));
@@ -76,7 +75,6 @@ public class EmployeeLogin {
             passwordField.setEchoChar(showPassword.isSelected() ? '\u0000' : '\u2022');
         });
 
-        // Add components to the right panel
         gbc.gridx = 0;
         gbc.gridy = 0;
         rightPanel.add(usernameLabel, gbc);
@@ -102,13 +100,13 @@ public class EmployeeLogin {
         loginButton.setFont(new Font("Arial", Font.BOLD, 16));
         loginButton.setOpaque(false);
         loginButton.setBackground(new Color(255, 255, 255, 150));
-        loginButton.setForeground(Color.WHITE);
+        loginButton.setForeground(Color.BLACK);
 
         JButton backButton = new JButton("Back");
         backButton.setFont(new Font("Arial", Font.BOLD, 16));
         backButton.setOpaque(false);
         backButton.setBackground(new Color(255, 255, 255, 150));
-        backButton.setForeground(Color.WHITE);
+        backButton.setForeground(Color.BLACK);
 
         buttonPanel.add(loginButton);
         buttonPanel.add(backButton);
@@ -117,7 +115,6 @@ public class EmployeeLogin {
         gbc.gridy = 5;
         rightPanel.add(buttonPanel, gbc);
 
-        // Add action listeners to buttons
      // Action listener for login button
         loginButton.addActionListener(new ActionListener() {
         @Override
@@ -136,7 +133,7 @@ public class EmployeeLogin {
                 if (loginSuccess) {
                     JOptionPane.showMessageDialog(employeeFrame, "Login Successful!");
                     // Proceed to Employee Portal
-                    employeeFrame.dispose(); // Close the login page
+                    employeeFrame.dispose();
                     new EmployeePortal(employeeFrame, username); // Pass the logged-in username here
                 } else {
                     JOptionPane.showMessageDialog(employeeFrame, "Invalid username or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
@@ -161,12 +158,11 @@ public class EmployeeLogin {
             }
         });
 
-        // Add panels to the frame
         employeeFrame.add(leftPanel);
         employeeFrame.add(rightPanel);
 
         // Set frame visibility
-        employeeFrame.setLocationRelativeTo(null); // Center the frame on the screen
+        employeeFrame.setLocationRelativeTo(null);
         employeeFrame.setVisible(true);
         parentFrame.setVisible(false); // Hide the Home Page
     }

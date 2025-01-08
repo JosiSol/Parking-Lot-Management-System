@@ -19,6 +19,7 @@ public class CheckIn {
     }
 
     private void initialize() {
+        
         // Ensure the parking data file exists before proceeding
         ensureFileExists("parking_data.csv");
 
@@ -26,11 +27,11 @@ public class CheckIn {
         checkInFrame.setSize(500, 400);
         checkInFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         checkInFrame.setLocationRelativeTo(null);
-     // Set the icon
+       
         ImageIcon icon = new ImageIcon(getClass().getResource("/img/Icon.jpg"));
         checkInFrame.setIconImage(icon.getImage());
         
-     // Create a label for the title
+        // Create a label for the title
         JLabel titleLabel = new JLabel("Check In New Car", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         checkInFrame.add(titleLabel, BorderLayout.NORTH);
@@ -47,7 +48,7 @@ public class CheckIn {
         };
         panel.setLayout(new GridLayout(4, 2, 10, 10)); // 4 rows, 2 columns layout
         
-     // Create labels and text fields for car details
+        // Create labels and text fields for car details
         JLabel customerNameLabel = new JLabel("Customer Name:");
         customerNameLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         customerNameField = new JTextField();
@@ -73,23 +74,19 @@ public class CheckIn {
         panel.add(plateNumberLabel);
         panel.add(plateNumberField);
         
-     // Add the form panel to the center of the frame
         checkInFrame.add(panel, BorderLayout.CENTER);
        
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
         
-     // Add buttons to the button panel
         buttonPanel.add(checkInButton);
         buttonPanel.add(backButton);
         
-     // Add the button panel to the bottom of the frame
         checkInFrame.add(buttonPanel, BorderLayout.SOUTH);
 
-        
         checkInFrame.setVisible(true);
 
-        // Back button action
+        // Action Listener for back button
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -98,7 +95,7 @@ public class CheckIn {
             }
         });
 
-        // Check-in button action
+        // Action Listener for check in button
         checkInButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -121,7 +118,7 @@ public class CheckIn {
                 // Call the method to save data to CSV
                 saveToCSV(customerName, phoneNumber, plateNumber);
 
-                // Optionally, show a confirmation message
+                // Show a confirmation message
                 JOptionPane.showMessageDialog(checkInFrame, "Car checked in successfully!");
 
                 // Clear fields after check-in
@@ -252,11 +249,11 @@ public class CheckIn {
         Date now = new Date();
         return sdf.format(now);
     }
- // Helper method to customize text fields
+    // Helper method to customize text fields
     private void customizeTextField(JTextField textField) {
         textField.setOpaque(false);
         textField.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
-        textField.setBackground(new Color(0, 0, 0, 0)); // Set transparent background
+        textField.setBackground(new Color(0, 0, 0, 0)); 
         textField.setFont(new Font("Arial", Font.PLAIN, 15));
     }
 
@@ -296,9 +293,9 @@ public class CheckIn {
         };
 
         button.setPreferredSize(new Dimension(200, 50));
-        button.setOpaque(false); // Ensures the button background remains transparent
-        button.setFocusPainted(false); // Removes focus highlight
-        button.setBorderPainted(false); // Removes default border
+        button.setOpaque(false);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false); 
         return button;
     }
 }

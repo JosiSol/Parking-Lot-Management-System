@@ -19,7 +19,7 @@ public class Employee {
     
     // Method to validate employee login credentials
     public static boolean validateEmployeeLogin(String username, String password) {
-        List<Employee> employees = getAllEmployees(); // Get all employees from the file
+        List<Employee> employees = getAllEmployees(); 
 
         // Check if any employee's username and password match the input
         for (Employee employee : employees) {
@@ -85,7 +85,7 @@ public class Employee {
     }
     // Check if employee exists in the file
     public static boolean checkEmployeeExists(String username) {
-        List<Employee> employees = getAllEmployees(); // Fetch all employees from the file
+        List<Employee> employees = getAllEmployees(); 
 
         // Iterate through all employees to check if the username exists
         for (Employee employee : employees) {
@@ -122,7 +122,6 @@ public class Employee {
         }
     }
 
-    // Getters and Setters (optional)
     public String getName() {
         return name;
     }

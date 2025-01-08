@@ -18,11 +18,10 @@ public class SettingsPage {
         settingsFrame.setSize(500, 400);
         settingsFrame.setLayout(new BorderLayout());
         
-     // Set the icon
         ImageIcon icon = new ImageIcon(HomePage.class.getResource("/img/Icon.jpg"));
         settingsFrame.setIconImage(icon.getImage());
         
-     // Create a label for the title
+        // Create a label for the title
         JLabel titleLabel = new JLabel("Change Password", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         settingsFrame.add(titleLabel, BorderLayout.NORTH);
@@ -45,19 +44,18 @@ public class SettingsPage {
         currentPasswordLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         JPasswordField currentPasswordField = new JPasswordField();
         customizePasswordField(currentPasswordField);
-       
+    
         JLabel newPasswordLabel = new JLabel("New Password");
         newPasswordLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         JPasswordField newPasswordField = new JPasswordField();
         customizePasswordField(newPasswordField);
         
-
         JLabel confirmPasswordLabel = new JLabel("Confirm Password");
         confirmPasswordLabel.setFont(new Font("Arial", Font.PLAIN, 15));
         JPasswordField confirmPasswordField = new JPasswordField();
         customizePasswordField(confirmPasswordField);
         
-     // Create a checkbox to toggle password visibility
+        // Create a checkbox to toggle password visibility (One for all password fields)
         JCheckBox confirmPasswordFieldCheckBox = new JCheckBox("Show Password");
         confirmPasswordFieldCheckBox.setFont(new Font("Arial", Font.PLAIN, 15));
         confirmPasswordFieldCheckBox.setOpaque(false);
@@ -67,7 +65,6 @@ public class SettingsPage {
             currentPasswordField.setEchoChar(confirmPasswordFieldCheckBox.isSelected() ? '\u0000' : '\u2022');
         });
 
-        // Add components to the form panel
         formPanel.add(currentPasswordLabel);
         formPanel.add(currentPasswordField);
         formPanel.add(newPasswordLabel);
@@ -76,10 +73,9 @@ public class SettingsPage {
         formPanel.add(confirmPasswordField);
         formPanel.add(confirmPasswordFieldCheckBox);
         
-     // Add the form panel to the center of the frame
         settingsFrame.add(formPanel, BorderLayout.CENTER);
         
-     // Create a panel for the buttons
+        // Create a panel for the buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
         
@@ -87,11 +83,9 @@ public class SettingsPage {
         JButton submitButton = createGradientButton("Submit");
         JButton backButton = createGradientButton("Back");
         
-     // Add buttons to the button panel
         buttonPanel.add(submitButton);
         buttonPanel.add(backButton);
         
-     // Add the button panel to the bottom of the frame
         settingsFrame.add(buttonPanel, BorderLayout.SOUTH);
 
         // Action listener for the Submit button
@@ -132,7 +126,7 @@ public class SettingsPage {
 
                             JOptionPane.showMessageDialog(settingsFrame, "Password updated successfully!");
                             settingsFrame.dispose();
-                            parentFrame.setVisible(true); // Show the Employee Portal again
+                            parentFrame.setVisible(true);
                         } else {
                             JOptionPane.showMessageDialog(settingsFrame, "New Password and Confirm Password do not match!", "Error", JOptionPane.ERROR_MESSAGE);
                         }
@@ -156,8 +150,8 @@ public class SettingsPage {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                settingsFrame.dispose(); // Close the settings page
-                parentFrame.setVisible(true); // Show the Employee Portal again
+                settingsFrame.dispose(); 
+                parentFrame.setVisible(true); 
             }
         });
 
@@ -170,7 +164,7 @@ public class SettingsPage {
     private void customizePasswordField(JPasswordField passwordField) {
         passwordField.setOpaque(false);
         passwordField.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
-        passwordField.setBackground(new Color(0, 0, 0, 0)); // Set transparent background
+        passwordField.setBackground(new Color(0, 0, 0, 0)); 
         passwordField.setFont(new Font("Arial", Font.PLAIN, 15));
     }
 
@@ -210,9 +204,9 @@ public class SettingsPage {
         };
 
         button.setPreferredSize(new Dimension(200, 50));
-        button.setOpaque(false); // Ensures the button background remains transparent
-        button.setFocusPainted(false); // Removes focus highlight
-        button.setBorderPainted(false); // Removes default border
+        button.setOpaque(false);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false); 
         return button;
     }
 }

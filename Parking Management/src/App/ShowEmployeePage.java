@@ -9,13 +9,13 @@ import java.util.List;
 public class ShowEmployeePage {
 
     public ShowEmployeePage(JFrame parentFrame) {
+        
         // Create the frame for showing employee details
         JFrame showEmployeeFrame = new JFrame("Show Employees");
         showEmployeeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         showEmployeeFrame.setSize(500, 400);
         showEmployeeFrame.setLayout(new BorderLayout());
         
-     // Set the icon
         ImageIcon icon = new ImageIcon(HomePage.class.getResource("/img/Icon.jpg"));
         showEmployeeFrame.setIconImage(icon.getImage());
 
@@ -26,7 +26,7 @@ public class ShowEmployeePage {
 
         // Create a panel to display employee details in a scrollable area
         JPanel employeesPanel = new JPanel();
-        employeesPanel.setLayout(new BoxLayout(employeesPanel, BoxLayout.Y_AXIS)); // Vertical box layout
+        employeesPanel.setLayout(new BoxLayout(employeesPanel, BoxLayout.Y_AXIS));
         JScrollPane scrollPane = new JScrollPane(employeesPanel);
         
         // Get all employees and display them
@@ -37,7 +37,7 @@ public class ShowEmployeePage {
         } else {
             for (Employee employee : employees) {
                 JPanel employeePanel = new JPanel();
-                employeePanel.setLayout(new GridLayout(4, 2)); // Display each employee in a grid layout
+                employeePanel.setLayout(new GridLayout(4, 2));
                 employeePanel.add(new JLabel("Name:"));
                 employeePanel.add(new JLabel(employee.getName()));
                 employeePanel.add(new JLabel("Gender:"));
@@ -49,11 +49,10 @@ public class ShowEmployeePage {
                 
                 // Add this employee panel to the main panel
                 employeesPanel.add(employeePanel);
-                employeesPanel.add(Box.createVerticalStrut(10)); // Add some space between employees
+                employeesPanel.add(Box.createVerticalStrut(10));
             }
         }
 
-        // Add the scroll pane to the center of the frame
         showEmployeeFrame.add(scrollPane, BorderLayout.CENTER);
 
         // Create a back button panel
@@ -62,20 +61,19 @@ public class ShowEmployeePage {
         JButton backButton = new JButton("Back");
         buttonPanel.add(backButton);
 
-        // Add the button panel to the bottom of the frame
         showEmployeeFrame.add(buttonPanel, BorderLayout.SOUTH);
 
         // Action listener for Back button
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showEmployeeFrame.dispose(); // Close the Show Employee page
-                parentFrame.setVisible(true); // Show the Admin Portal again
+                showEmployeeFrame.dispose();
+                parentFrame.setVisible(true); 
             }
         });
 
         // Set frame visibility
-        showEmployeeFrame.setLocationRelativeTo(null); // Center the frame on the screen
+        showEmployeeFrame.setLocationRelativeTo(null);
         showEmployeeFrame.setVisible(true);
         parentFrame.setVisible(false); // Hide the Admin Portal when Show Employee page is open
     }

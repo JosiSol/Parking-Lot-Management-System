@@ -18,11 +18,10 @@ public class EmployeePortal {
         employeePortalFrame.setSize(900, 600);
         employeePortalFrame.setLayout(new BorderLayout());
         
-     // Set the icon
         ImageIcon icon = new ImageIcon(HomePage.class.getResource("/img/Icon.jpg"));
         employeePortalFrame.setIconImage(icon.getImage());
         
-     // Create a custom panel to draw the background image
+        // Create a custom panel to draw the background image
         JPanel backgroundPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -32,14 +31,14 @@ public class EmployeePortal {
                 g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
             }
         };
-        backgroundPanel.setLayout(null); // Use absolute layout for placing components
+        backgroundPanel.setLayout(null);
         employeePortalFrame.setContentPane(backgroundPanel);
         
-     // Create a panel to center buttons
+        // Create a panel to center buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(6, 1, 15, 15)); // 6 rows, 1 column, spacing
-        buttonPanel.setOpaque(false); // Make the panel transparent
-        buttonPanel.setBounds(300, 150, 300, 300); // Center in the frame
+        buttonPanel.setOpaque(false);
+        buttonPanel.setBounds(300, 150, 300, 300);
         backgroundPanel.add(buttonPanel);
 
      
@@ -50,7 +49,6 @@ public class EmployeePortal {
         JButton settingsButton = createGradientButton("Change Password");
         JButton backButton = createGradientButton("Logout");
 
-        // Add buttons to the panel
         buttonPanel.add(checkInButton);
         buttonPanel.add(checkOutButton);
         buttonPanel.add(statusButton);
@@ -90,7 +88,7 @@ public class EmployeePortal {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Open the Settings page when Settings button is clicked
-                new SettingsPage(employeePortalFrame, loggedInUsername); // Pass loggedInUsername
+                new SettingsPage(employeePortalFrame, loggedInUsername); 
             }
         });
 
@@ -98,17 +96,18 @@ public class EmployeePortal {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                employeePortalFrame.dispose(); // Close the Employee Portal page
-                parentFrame.setVisible(true); // Show the HomePage again (or Employee Login page)
+                employeePortalFrame.dispose(); 
+                parentFrame.setVisible(true); 
             }
         });
 
         // Set frame visibility
-        employeePortalFrame.setLocationRelativeTo(null); // Center the frame on the screen
+        employeePortalFrame.setLocationRelativeTo(null);
         employeePortalFrame.setVisible(true);
-        parentFrame.setVisible(false); // Hide the HomePage or previous screen when Employee Portal is open
+        parentFrame.setVisible(false); 
     }
- // Helper method to create gradient and rounded buttons
+    
+    // Helper method to create gradient and rounded buttons
     private JButton createGradientButton(String text) {
         JButton button = new JButton(text) {
             @Override
@@ -144,9 +143,9 @@ public class EmployeePortal {
         };
 
         button.setPreferredSize(new Dimension(200, 50));
-        button.setOpaque(false); // Ensures the button background remains transparent
-        button.setFocusPainted(false); // Removes focus highlight
-        button.setBorderPainted(false); // Removes default border
+        button.setOpaque(false);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
         return button;
     }
 }

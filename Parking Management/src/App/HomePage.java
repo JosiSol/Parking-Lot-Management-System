@@ -13,21 +13,21 @@ import javax.swing.*;
 public class HomePage {
 
     public static void main(String[] args) {
+        
         // Create the frame
         JFrame frame = new JFrame("Parking Management System - Home Page");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(900, 600); // Set frame size
-        frame.setLayout(new BorderLayout()); // Use BorderLayout
-        // Set the icon
+        frame.setSize(900, 600); 
+        frame.setLayout(new BorderLayout());
+
         ImageIcon icon = new ImageIcon(HomePage.class.getResource("/img/Icon.jpg"));
         frame.setIconImage(icon.getImage());
 
         // Create a custom panel with background image
         BackgroundPanel backgroundPanel = new BackgroundPanel();
-        frame.setContentPane(backgroundPanel); // Set custom panel as the content pane
+        frame.setContentPane(backgroundPanel);
 
         // Load custom font
-        // Adjust the path and size as needed
         Font customFont;
         try {
             customFont = Font.createFont(Font.TRUETYPE_FONT, HomePage.class.getResourceAsStream("/Fonts/Winter Minie.ttf")).deriveFont(38f);
@@ -36,76 +36,67 @@ public class HomePage {
             customFont = new Font("SansSerif", Font.PLAIN, 38); // Fallback font
         }
 
-
-        
         // Create a panel to hold title and buttons
         JPanel contentPanel = new JPanel();
-        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS)); // Vertical box layout
-        contentPanel.setOpaque(false); // Make the content panel transparent
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+        contentPanel.setOpaque(false);
         
-        // Create a margin above the title (this adds the margin before the title)
-        contentPanel.add(Box.createVerticalStrut(100)); // Adjust the vertical space as needed
-
+        // Create a margin above the title
+        contentPanel.add(Box.createVerticalStrut(100));
 
         // Create a label for the title
         JLabel titleLabel = new JLabel("Welcome to Parking Management System", JLabel.CENTER);
-        titleLabel.setFont(customFont);  // Set the custom font
-        titleLabel.setForeground(new Color(255,204,31)); // Set text color to white for better visibility
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // Center the title
-        contentPanel.add(Box.createVerticalStrut(80)); // Adds space before the title
-        contentPanel.add(titleLabel); // Add label to the content panel
+        titleLabel.setFont(customFont);
+        titleLabel.setForeground(new Color(255,204,31));
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        contentPanel.add(Box.createVerticalStrut(80));
+        contentPanel.add(titleLabel);
 
         // Create a panel to hold buttons
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS)); // Vertical box layout
-        buttonPanel.setOpaque(false); // Make the button panel transparent
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        buttonPanel.setOpaque(false);
 
         // Create buttons without background colors
         JButton employeeButton = new JButton("Employee");
         JButton adminButton = new JButton("Admin");
         JButton exitButton = new JButton("Exit");
 
-        // Set the custom font for buttons
         employeeButton.setFont(customFont);
         adminButton.setFont(customFont);
         exitButton.setFont(customFont);
 
-        // Remove background color
         employeeButton.setBackground(new Color(40,40,40));
         adminButton.setBackground(new Color(40,40,40));
         exitButton.setBackground(new Color(40,40,40));
 
-        // Set button text color
         employeeButton.setForeground(new Color(205,154,51));
         adminButton.setForeground(new Color(205,154,51));
         exitButton.setForeground(new Color(205,154,51));
 
-        // Add buttons to the button panel
         buttonPanel.add(Box.createVerticalStrut(10)); // Adds space between buttons
         buttonPanel.add(adminButton);
         buttonPanel.add(Box.createVerticalStrut(10));
         buttonPanel.add(employeeButton);
-        buttonPanel.add(Box.createVerticalStrut(10)); // Adds space between buttons
+        buttonPanel.add(Box.createVerticalStrut(10));
         buttonPanel.add(exitButton);
 
-        // Add button panel to the content panel
         contentPanel.add(buttonPanel);
 
-        // Add content panel to the center of the background panel
         backgroundPanel.add(contentPanel, BorderLayout.CENTER);
 
         // Action listeners for buttons
         employeeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new EmployeeLogin(frame); // Open the Employee Login page
+                new EmployeeLogin(frame);
             }
         });
 
         adminButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new AdminLogin(frame); // Pass the current frame to AdminLogin
+                new AdminLogin(frame);
             }
         });
 
@@ -114,13 +105,13 @@ public class HomePage {
             public void actionPerformed(ActionEvent e) {
                 int confirm = JOptionPane.showConfirmDialog(frame, "Are you sure you want to exit?", "Exit Confirmation", JOptionPane.YES_NO_OPTION);
                 if (confirm == JOptionPane.YES_OPTION) {
-                    System.exit(0); // Exit the program
+                    System.exit(0);
                 }
             }
         });
 
         // Set frame visibility
-        frame.setLocationRelativeTo(null); // Center the frame on the screen
+        frame.setLocationRelativeTo(null); 
         frame.setVisible(true);
     }
     
@@ -146,7 +137,6 @@ public class HomePage {
 
         public BackgroundPanel() {
             try {
-                // Load your background image (adjust path as necessary)
                 backgroundImage = ImageIO.read(HomePage.class.getResourceAsStream("/img/HomePageBG.jpg"));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -156,7 +146,6 @@ public class HomePage {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            // Scale the image to fill the panel
             if (backgroundImage != null) {
                 g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
             }

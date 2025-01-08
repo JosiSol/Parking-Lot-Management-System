@@ -1,24 +1,24 @@
 package App;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class ShowReportPage {
     private JFrame reportFrame;
     private JTable reportTable;
     private JScrollPane scrollPane;
-    private JLabel totalBillLabel;  // To display the total bill
+    private JLabel totalBillLabel;
 
     public ShowReportPage(JFrame parentFrame) {
+       
         // Create JFrame for showing the report
         reportFrame = new JFrame("Parking Report");
         reportFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         reportFrame.setSize(900, 600);
         reportFrame.setLocationRelativeTo(null);
-        
-     // Set the icon
+    
         ImageIcon icon = new ImageIcon(HomePage.class.getResource("/img/Icon.jpg"));
         reportFrame.setIconImage(icon.getImage());
 
@@ -34,14 +34,13 @@ public class ShowReportPage {
         reportTable = new JTable(tableModel);
         scrollPane = new JScrollPane(reportTable);
         
-        // Add the scroll pane containing the table to the panel
         panel.add(scrollPane, BorderLayout.CENTER);
 
         // Create "Back" button to go back to the previous page
         JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> {
             reportFrame.dispose();
-            parentFrame.setVisible(true);  // Show the previous page
+            parentFrame.setVisible(true);
         });
 
         // Create total bill label at the bottom
@@ -54,7 +53,6 @@ public class ShowReportPage {
         bottomPanel.add(totalBillLabel, BorderLayout.CENTER);
         bottomPanel.add(backButton, BorderLayout.EAST);
 
-        // Add the panel to the frame and make it visible
         reportFrame.add(panel, BorderLayout.CENTER);
         reportFrame.add(bottomPanel, BorderLayout.SOUTH);
         reportFrame.setVisible(true);

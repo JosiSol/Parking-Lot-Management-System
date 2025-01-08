@@ -6,14 +6,15 @@ import java.awt.*;
 public class AdminPortal {
 
     public AdminPortal(JFrame parentFrame) {
+
         // Create a new frame for the Admin Portal
         JFrame adminPortalFrame = new JFrame("Admin Portal");
         adminPortalFrame.setSize(900, 600);
         adminPortalFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
-        // Set the icon
         ImageIcon icon = new ImageIcon(getClass().getResource("/img/Icon.jpg"));
         adminPortalFrame.setIconImage(icon.getImage());
+        
         // Create a custom panel to draw the background image
         JPanel backgroundPanel = new JPanel() {
             @Override
@@ -24,14 +25,14 @@ public class AdminPortal {
                 g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
             }
         };
-        backgroundPanel.setLayout(null); // Use absolute layout for placing components
+        backgroundPanel.setLayout(null);
         adminPortalFrame.setContentPane(backgroundPanel);
 
         // Create a panel to center buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(6, 1, 15, 15)); // 6 rows, 1 column, spacing
-        buttonPanel.setOpaque(false); // Make the panel transparent
-        buttonPanel.setBounds(300, 150, 300, 300); // Center in the frame
+        buttonPanel.setOpaque(false); 
+        buttonPanel.setBounds(300, 150, 300, 300); 
         backgroundPanel.add(buttonPanel);
 
         // Create and style buttons
@@ -42,7 +43,6 @@ public class AdminPortal {
         JButton reportButton = createGradientButton("Report");
         JButton backButton = createGradientButton("Logout");
 
-        // Add buttons to the panel
         buttonPanel.add(addEmployeeButton);
         buttonPanel.add(removeEmployeeButton);
         buttonPanel.add(showEmployeeButton);
@@ -50,7 +50,7 @@ public class AdminPortal {
         buttonPanel.add(reportButton);
         buttonPanel.add(backButton);
 
-        // Add action listeners to buttons (no changes here)
+        // Add action listeners to buttons
         addEmployeeButton.addActionListener(e -> new AddEmployeePage(adminPortalFrame));
         removeEmployeeButton.addActionListener(e -> new RemoveEmployeePage(adminPortalFrame));
         showEmployeeButton.addActionListener(e -> new ShowEmployeePage(adminPortalFrame));
@@ -61,8 +61,7 @@ public class AdminPortal {
             parentFrame.setVisible(true);
         });
 
-        // Make the frame visible
-        adminPortalFrame.setLocationRelativeTo(null); // Center the window
+        adminPortalFrame.setLocationRelativeTo(null); 
         adminPortalFrame.setVisible(true);
 
         parentFrame.setVisible(false); // Hide the parent frame (HomePage)
@@ -104,9 +103,9 @@ public class AdminPortal {
         };
 
         button.setPreferredSize(new Dimension(200, 50));
-        button.setOpaque(false); // Ensures the button background remains transparent
-        button.setFocusPainted(false); // Removes focus highlight
-        button.setBorderPainted(false); // Removes default border
+        button.setOpaque(false);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
         return button;
     }
 }

@@ -1,10 +1,9 @@
 package App;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.io.*;
 import javax.swing.*;
 import javax.swing.table.*;
-import java.io.*;
 
 public class ShowStatusPage {
     private JFrame statusFrame;
@@ -16,15 +15,16 @@ public class ShowStatusPage {
     }
 
     private void initialize(JFrame parentFrame) {
+        
         // Create the frame for the Show Status Page
         statusFrame = new JFrame("Parking Status");
         statusFrame.setSize(900, 600);
         statusFrame.setLocationRelativeTo(null); // Center the window
         statusFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
        
-        // Set the icon
         ImageIcon icon = new ImageIcon(HomePage.class.getResource("/img/Icon.jpg"));
         statusFrame.setIconImage(icon.getImage());
+        
         // Column names for the table
         String[] columnNames = { "Name", "Phone Number", "Plate Number", "Parking Spot", "Check In Time" };
 
@@ -40,14 +40,12 @@ public class ShowStatusPage {
         DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
         statusTable = new JTable(tableModel);
 
-        // Add a scroll pane to make the table scrollable
         scrollPane = new JScrollPane(statusTable);
         statusFrame.add(scrollPane, BorderLayout.CENTER);
 
         // Add "Back" button and spot info to the bottom of the frame
         JPanel bottomPanel = new JPanel(new BorderLayout());
 
-        // Add the back button
         JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> {
             statusFrame.dispose();
@@ -65,7 +63,6 @@ public class ShowStatusPage {
 
         bottomPanel.add(spotInfoPanel, BorderLayout.EAST);
 
-        // Add the bottom panel to the frame
         statusFrame.add(bottomPanel, BorderLayout.SOUTH);
 
         // Make the frame visible

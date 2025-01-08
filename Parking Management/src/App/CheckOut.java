@@ -9,59 +9,56 @@ import java.util.Date;
 
 public class CheckOut {
     public JFrame checkoutFrame;
-    private JTextField plateNumberField = new JTextField(25); // Set a wider width for the text field
+    private JTextField plateNumberField = new JTextField(25);
 
     public CheckOut(JFrame parentFrame) {
+       
         // Create the JFrame for the CheckOut page
         checkoutFrame = new JFrame("Check Out");
         checkoutFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         checkoutFrame.setSize(420, 200);
         checkoutFrame.setLayout(new BorderLayout());
-     // Set the icon
+     
         ImageIcon icon = new ImageIcon(getClass().getResource("/img/Icon.jpg"));
         checkoutFrame.setIconImage(icon.getImage());
-     // Create a custom JPanel for the background
+        
+        // Create a custom JPanel for the background
         JPanel backgroundPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 // Load the background image and scale it to fit the panel
-                ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/img/PortalBG.jpg")); // Replace with your image path
+                ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/img/PortalBG.jpg")); 
                 Image image = backgroundImage.getImage();
-                g.drawImage(image, 0, 0, getWidth(), getHeight(), this); // Draw the image scaled to panel size
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), this); 
             }
         };
         
-        backgroundPanel.setLayout(new BorderLayout()); // Set layout for background panel
+        backgroundPanel.setLayout(new BorderLayout()); 
         
-     // Create a label for the title
+        // Create a label for the title
         JLabel titleLabel = new JLabel("CheckOut Car", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         
-     // Add the title label to the background panel
         backgroundPanel.add(titleLabel, BorderLayout.NORTH);
         
-        
-        // Create a panel for the form input
         JPanel formPanel = new JPanel();
-        formPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10)); // FlowLayout to place the label and text field next to each other
+        formPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         formPanel.setOpaque(false);
         
         // Create label and text field for the username
         JLabel plateNumberLabel = new JLabel("CheckOut");
-        plateNumberLabel.setFont(new Font("Arial", Font.BOLD, 14)); // Increase label font size
+        plateNumberLabel.setFont(new Font("Arial", Font.BOLD, 14));
 
         customizeTextField(plateNumberField);
-        plateNumberField.setFont(new Font("Arial", Font.PLAIN, 14)); // Set font size for the text field
+        plateNumberField.setFont(new Font("Arial", Font.PLAIN, 14));
 
-        // Add components to the form panel
         formPanel.add(plateNumberLabel);
         formPanel.add(plateNumberField);
         
-     // Add the form panel to the center of the background panel
         backgroundPanel.add(formPanel, BorderLayout.CENTER);
         
-     // Create a panel for the buttons
+        // Create a panel for the buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout());
         
@@ -69,11 +66,9 @@ public class CheckOut {
         JButton checkoutButton = createGradientButton("CheckOut");
         JButton backButton = createGradientButton("Back");
         
-        // Add buttons to the button panel
         buttonPanel.add(checkoutButton);
         buttonPanel.add(backButton);
         
-        // Add the button panel to the bottom of the background panel
         backgroundPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         checkoutButton.addActionListener(e -> processCheckOut());
@@ -83,8 +78,8 @@ public class CheckOut {
         });
         
      // Set frame visibility
-        checkoutFrame.setLocationRelativeTo(null); // Center the frame on the screen
-        checkoutFrame.setContentPane(backgroundPanel); // Set the background panel as the content pane
+        checkoutFrame.setLocationRelativeTo(null);
+        checkoutFrame.setContentPane(backgroundPanel);
         checkoutFrame.setVisible(true);
     }
 
@@ -112,14 +107,14 @@ public class CheckOut {
             BufferedReader br = new BufferedReader(new FileReader(parkingFile))
         ) {
             String line;
-            String header = "Name,Phone Number,Plate Number,Parking Spot,Check In Time";  // Column names
+            String header = "Name,Phone Number,Plate Number,Parking Spot,Check In Time";
             boolean firstLine = true;  // Flag to skip the first line (header)
 
             // Read the parking file line by line
             while ((line = br.readLine()) != null) {
                 // Skip the header line (first line of the CSV)
                 if (firstLine) {
-                    firstLine = false;  // After this, the first line is skipped
+                    firstLine = false; 
                     continue;  // Skip the header row
                 }
 
@@ -137,7 +132,7 @@ public class CheckOut {
                 // If the plate number matches, mark as found and record the car data in the report
                 if (storedPlateNumber.equals(plateNumber)) {
                     carFound = true;
-                    checkInTime = storedCheckInTime;  // Store the check-in time
+                    checkInTime = storedCheckInTime;
 
                     // Calculate the Bill based on check-in and check-out times
                     long bill = calculateBill(checkInTime, checkOutTime);
@@ -250,11 +245,11 @@ public class CheckOut {
             return name + "," + phoneNumber + "," + plateNumber + "," + parkingSpot + "," + checkInTime;
         }
     }
- // Helper method to customize text fields
+    // Helper method to customize text fields
     private void customizeTextField(JTextField textField) {
         textField.setOpaque(false);
         textField.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
-        textField.setBackground(new Color(0, 0, 0, 0)); // Set transparent background
+        textField.setBackground(new Color(0, 0, 0, 0)); 
         textField.setFont(new Font("Arial", Font.PLAIN, 15));
     }
     // Helper method to create gradient and rounded buttons
@@ -293,9 +288,9 @@ public class CheckOut {
         };
 
         button.setPreferredSize(new Dimension(200, 50));
-        button.setOpaque(false); // Ensures the button background remains transparent
-        button.setFocusPainted(false); // Removes focus highlight
-        button.setBorderPainted(false); // Removes default border
+        button.setOpaque(false); 
+        button.setFocusPainted(false); 
+        button.setBorderPainted(false); 
         return button;
     }
 }
